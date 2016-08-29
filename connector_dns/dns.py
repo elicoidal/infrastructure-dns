@@ -51,7 +51,7 @@ class DNSDomain(models.Model):
     name = fields.Char(
         string='Name',
         required=True,
-        help='Domain name without "www",such as"dnspod.cn"'
+        help='Domain name without "www", such as"dnspod.cn"'
     )
     record_ids = fields.One2many(
         comodel_name='dns.record',
@@ -72,14 +72,14 @@ class DNSRecord(models.Model):
 
     name = fields.Char(
         string='Sub domain',
-        help="host record,such as 'www'",
+        help="host record, such as 'www'",
         required=True)
     domain_id = fields.Many2one(
         comodel_name='dns.domain',
         string="Domain",
         domain="[('state','=','done')]",
         ondelete='cascade',
-        help="Domain which has already confirmed"
+        help="Domain which has already be confirmed"
     )
     type = fields.Selection(
         selection='_type_select_version',
@@ -96,13 +96,13 @@ class DNSRecord(models.Model):
     )
     mx_priority = fields.Integer(
         string='MX priority',
-        help="scope:1-20",
+        help="range:1-20",
         default=1
     )
     ttl = fields.Integer(
         string='TTL',
         default=600,
-        help="scope:1-604800",
+        help="range:1-604800",
         required=True
     )
     backend_id = fields.Many2one(

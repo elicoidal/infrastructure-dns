@@ -46,7 +46,7 @@ def output_recorder(filename):
     import pprint
     with open(filename, 'w') as f:
         pprint.pprint(recorder, f)
-    _logger.debug('recorder written to file %s', filename)
+    _logger.debug('Recorder written to file %s', filename)
 
 
 class DNSLocation(object):
