@@ -22,8 +22,12 @@ class DNSModelBinder(Binder):
         'dns.record',
         'dns.domain'
     ]
+    _external_field = 'dns_id'
+    _backend_field = 'dns_backend_id'
+    _openerp_field = 'openerp_id'
+    _sync_date_field = 'sync_date'
 
-    def to_odoo(self, external_id, unwrap=False):
+    def to_openerp(self, external_id, unwrap=False):
         """ Give the OpenERP ID for an external ID
 
         :param external_id: external ID for which we want the OpenERP ID
@@ -35,16 +39,18 @@ class DNSModelBinder(Binder):
         """
         binding_ids = self.session.search(
             self.model._name,
-            [('dns_id', '=', str(external_id)),
-             ('dns_backend_id', '=', self.backend_record.id)])
+            [(self._external_field, '=', str(external_id)),
+             (self._backend_field, '=', self.backend_record.id)])
         if not binding_ids:
             return None
         assert len(binding_ids) == 1, "Several records found: %s" % binding_ids
         binding_id = binding_ids[0]
         if unwrap:
-            return self.session.read(self.model._name,
-                                     binding_id,
-                                     ['openerp_id'])['openerp_id'][0]
+            model_id = self.session.read(
+                self.model._name, binding_id, [self._openerp_field]
+            )
+            assert model_id
+            return model_id[self._openerp_field][0]
         else:
             return binding_id
 
@@ -55,9 +61,10 @@ class DNSModelBinder(Binder):
         :return: backend identifier of the record
         """
         dns_record = self.session.read(
-            self.model._name, binding_id, ['dns_id'])
+            self.model._name, binding_id, [self._external_field]
+        )
         assert dns_record
-        return dns_record['dns_id']
+        return dns_record[self._external_field]
 
     def bind(self, external_id, binding_id):
         """ Create the link between an external ID and an OpenERP ID and
