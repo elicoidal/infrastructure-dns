@@ -13,7 +13,7 @@ def get_environment(session, model_name, backend_id):
     return env
 
 
-class DNSBinding(models.Model):
+class DNSBinding(models.AbstractModel):
     """ Abstract Model for the Bindigs.
     All the models used as bindings between dnspod and OpenERP
     (``dnspod.res.partner``, ``dnspod.product.product``, ...) should
@@ -23,11 +23,12 @@ class DNSBinding(models.Model):
     _inherit = 'external.binding'
     _description = 'dns Binding (abstract)'
 
-    backend_id = fields.Many2one(
-        'dns.backend',
+    dns_backend_id = fields.Many2one(
+        comodel_name='dns.backend',
         String='DNS Backend',
-        required=True,
-        ondelete='restrict')
+        store=True,
+        ondelete='restrict'
+    )
     # fields.char because 0 is a valid dnspod ID
     dns_id = fields.Char('ID on other software')
     # state of the record synchronization with dnspod

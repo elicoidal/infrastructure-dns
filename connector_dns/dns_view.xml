@@ -61,7 +61,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="backend_id"/>
+                    <field name="dns_backend_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -84,7 +84,7 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="backend_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="dns_backend_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <label for="record_ids" string='Subdomains'/>
                         <field name="record_ids" attrs="{'readonly': [('state', '!=', 'done')]}">
@@ -96,7 +96,7 @@
                                 <field name="value"/>
                                 <field name="mx_priority"/>
                                 <field name="ttl"/>
-                                <field name="backend_id" invisible="1"/>
+                                <field name="dns_backend_id" invisible="1"/>
                             </tree>
                         </field>
                     </sheet>
@@ -125,7 +125,7 @@
                     <field name="value"/>
                     <field name="mx_priority"/>
                     <field name="ttl"/>
-                    <field name="backend_id" invisible="1"/>
+                    <field name="dns_backend_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -152,7 +152,7 @@
                             <field name="value"/>
                             <field name="mx_priority"/>
                             <field name="ttl"/>
-                            <field name="backend_id" invisible="1"/>
+                            <field name="dns_backend_id" invisible="1"/>
                         </group>
                     </sheet>
                 </form>

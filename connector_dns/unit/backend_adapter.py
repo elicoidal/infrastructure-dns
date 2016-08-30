@@ -61,7 +61,6 @@ class DNSAdapter(CRUDAdapter):
 
     def __init__(self, environment):
         """
-
         :param environment: current environment (backend, session, ...)
         :type environment: :py:class:`connector.connector.Environment`
         """

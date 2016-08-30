@@ -5,24 +5,20 @@ import openerp.tests.common as common
 from openerp.addons.connector.backend import Backend
 
 
-class TestBackend(common.TransactionCase):
+class TestDNSBackend(common.TransactionCase):
     """
-    test generic Backend
+    Test DNS Backend
     """
 
     def setUp(self):
-        super(TestBackend, self).setUp()
+        super(TestDNSBackend, self).setUp()
         self.service = "dns"
-        self.version = "1.7"
 
-    def tearDown(self):
-        super(TestBackend, self).tearDown()
+    def test_backend(self):
+        backend = Backend(self.service)
+        self.assertEqual(backend.service, self.service)
 
-    def test_dnspod(self):
-        dnspod = Backend(self.service)
-        self.assertEqual(dnspod.service, self.service)
-
-    def test_child_dnspod(self):
-        dnspod = Backend(self.service)
-        child_dnspod = Backend(parent=dnspod, version=self.service)
-        self.assertEqual(child_dnspod.service, dnspod.service)
+    def test_child_backend(self):
+        backend = Backend(self.service)
+        child_backend = Backend(parent=backend, version=self.service)
+        self.assertEqual(child_backend.service, backend.service)

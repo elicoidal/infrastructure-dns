@@ -7,12 +7,8 @@ from openerp.addons.connector.connector import Binder
 from ..backend import dns
 
 
-class DNSPodBinder(Binder):
-    """ Generic Binder for DNSPod """
-
-
 @dns
-class DNSPodModelBinder(DNSPodBinder):
+class DNSModelBinder(Binder):
     """
     Bindings are done directly on the binding model.
 
@@ -27,7 +23,7 @@ class DNSPodModelBinder(DNSPodBinder):
         'dns.domain'
     ]
 
-    def to_openerp(self, external_id, unwrap=False):
+    def to_odoo(self, external_id, unwrap=False):
         """ Give the OpenERP ID for an external ID
 
         :param external_id: external ID for which we want the OpenERP ID
@@ -40,7 +36,7 @@ class DNSPodModelBinder(DNSPodBinder):
         binding_ids = self.session.search(
             self.model._name,
             [('dns_id', '=', str(external_id)),
-             ('backend_id', '=', self.backend_record.id)])
+             ('dns_backend_id', '=', self.backend_record.id)])
         if not binding_ids:
             return None
         assert len(binding_ids) == 1, "Several records found: %s" % binding_ids

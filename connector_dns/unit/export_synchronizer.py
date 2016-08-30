@@ -34,7 +34,7 @@ class DNSBaseExporter(ExportSynchronizer):
         self.binding_id = None
         self.external_id = None
 
-    def _get_openerp_data(self):
+    def _get_odoo_data(self):
         """ Return the raw OpenERP data for ``self.binding_id`` """
         return self.session.browse(self.model._name, self.binding_id)
 
