@@ -12,7 +12,8 @@ able to connect to external service providers via API and the odoo-connector
 job-queue.
 
 This module only introduces the main data model and can be used as is to manually store
-DNS records. It provides the objects or basic mapping to create API connection but doesnot provide any connector per se. Additional modules for specific connectors 
+DNS records. It provides the objects or basic mapping to create API connection but doesnot 
+provide any connector per se. Additional modules for specific connectors 
 need to be added to manage the service provider connection.
 
 With specific DNS provider module, the DNS connector supports:
